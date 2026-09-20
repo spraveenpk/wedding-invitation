@@ -151,6 +151,6 @@ export const WEDDING_CONFIG = {
   // WhatsApp Share Message
   whatsapp: {
     message:
-      "With immense happiness, we invite you to celebrate the wedding of Praveen Kumar S & Sri Arunachala Priya S. ❤️\n\nReception: 15 November 2026\nMuhurtham: 16 November 2026\n\nWe would be delighted to have you with us.\n\n",
+      "✨ *Wedding Invitation* ✨\n\nWith immense joy and the blessings of our families, we invite you to celebrate the wedding of\n💍 *Praveen Kumar S & Sri Arunachala Priya S* 💍\n\n🗓 *Reception:* Sunday, 15 November 2026\n🗓 *Muhurtham:* Monday, 16 November 2026 (06:00 AM – 07:00 AM)\n📍 *Venue:* Kettimelam Mahal, Coimbatore\n\nPlease view our digital invitation card for ceremonies, venue directions & RSVP:\n",
   },
 };

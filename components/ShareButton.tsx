@@ -6,7 +6,7 @@ export default function ShareButton() {
   const handleShare = () => {
     const origin = typeof window !== "undefined" ? window.location.origin : "";
     const text = encodeURIComponent(WEDDING_CONFIG.whatsapp.message + origin);
-    window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank", "noopener,noreferrer");
+    window.open(`https://wa.me/?text=${text}`, "_blank", "noopener,noreferrer");
   };
 
   return (

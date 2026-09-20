@@ -5,7 +5,7 @@ export default function WhatsAppShare() {
   const handleShare = () => {
     const currentUrl = typeof window !== "undefined" ? window.location.href : "";
     const text = encodeURIComponent(WEDDING_CONFIG.whatsapp.message + currentUrl);
-    window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
+    window.open(`https://wa.me/?text=${text}`, "_blank", "noopener,noreferrer");
   };
 
   return (
