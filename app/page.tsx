@@ -141,6 +141,7 @@ export default function Home() {
               href="#our-story"
               onClick={(e) => {
                 e.preventDefault();
+                window.dispatchEvent(new CustomEvent("play-wedding-music"));
                 document.getElementById("our-story")?.scrollIntoView({ behavior: "smooth" });
               }}
               className="btn-gold mt-8 sm:mt-12 inline-flex cursor-pointer text-[10px] sm:text-xs py-2.5 px-6 sm:py-3 sm:px-8"

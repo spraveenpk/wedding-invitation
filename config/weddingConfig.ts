@@ -153,4 +153,10 @@ export const WEDDING_CONFIG = {
     message:
       "✨ *Wedding Invitation* ✨\n\nWith immense joy and the blessings of our families, we invite you to celebrate the wedding of\n💍 *Praveen Kumar S & Sri Arunachala Priya S* 💍\n\n🗓 *Reception:* Sunday, 15 November 2026\n🗓 *Muhurtham:* Monday, 16 November 2026 (06:00 AM – 07:00 AM)\n📍 *Venue:* Kettimelam Mahal, Coimbatore\n\nPlease view our digital invitation card for ceremonies, venue directions & RSVP:\n",
   },
+
+  // Authentic Wedding Background Music
+  audio: {
+    src: "/audio/wedding_music.mp3",
+    title: "Auspicious Wedding Shehnai & Nadaswaram Celebration",
+  },
 };
