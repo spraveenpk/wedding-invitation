@@ -17,24 +17,50 @@ export default function RSVPForm() {
     nameInput?.focus({ preventScroll: true });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !attending) return;
 
     setIsSubmitting(true);
 
-    // Store in localStorage for user session retention
+    const payload = {
+      name: name.trim(),
+      attending,
+      guests,
+      message: message.trim(),
+      timestamp: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
+    };
+
+    // 1. Store in localStorage for user session retention
     try {
-      localStorage.setItem(
-        "wedding_rsvp",
-        JSON.stringify({ name, attending, guests, message, date: new Date().toISOString() })
-      );
+      localStorage.setItem("wedding_rsvp", JSON.stringify(payload));
     } catch {}
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 600);
+    // 2. Post to /api/rsvp (which sends directly to your Google Sheet)
+    try {
+      await fetch("/api/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch (err) {
+      console.warn("Could not post to /api/rsvp:", err);
+    }
+
+    // 3. Fallback direct client post to Google Sheet if configured
+    if (WEDDING_CONFIG.rsvp?.googleSheetUrl) {
+      try {
+        await fetch(WEDDING_CONFIG.rsvp.googleSheetUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+      } catch {}
+    }
+
+    setIsSubmitting(false);
+    setIsSubmitted(true);
   };
 
   const handleWhatsAppNotify = () => {

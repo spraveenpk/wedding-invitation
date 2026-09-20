@@ -159,4 +159,9 @@ export const WEDDING_CONFIG = {
     src: "/audio/wedding_music.mp3",
     title: "Auspicious Wedding Shehnai & Nadaswaram Celebration",
   },
+
+  // RSVP & Google Sheets Integration
+  rsvp: {
+    googleSheetUrl: process.env.NEXT_PUBLIC_GOOGLE_SHEET_URL || "",
+  },
 };
