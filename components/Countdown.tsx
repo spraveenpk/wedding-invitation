@@ -58,30 +58,30 @@ export default function Countdown() {
 
   return (
     <div
-      className="flex flex-wrap items-stretch justify-center gap-4 md:gap-8"
+      className="flex items-stretch justify-center gap-2 sm:gap-3 md:gap-5 max-w-lg mx-auto"
       role="timer"
       aria-label={`Countdown to the Muhurtham on ${WEDDING_CONFIG.muhurtham.day}, ${WEDDING_CONFIG.muhurtham.date}`}
     >
       {units.map((unit) => (
         <div
           key={unit.label}
-          className="flex min-w-[84px] flex-col items-center rounded-sm border border-border bg-card/70 px-5 py-6 backdrop-blur-sm md:min-w-[130px] md:px-8 md:py-8"
+          className="flex flex-1 min-w-[64px] max-w-[96px] flex-col items-center rounded-sm border border-border bg-card/75 px-2.5 py-3 sm:px-3.5 sm:py-4 md:px-4 md:py-5 backdrop-blur-sm shadow-[0_12px_30px_rgba(0,0,0,0.5)] transition-transform duration-300 hover:border-gold/60"
           style={{
             boxShadow:
-              "0 20px 50px rgba(0,0,0,0.55), inset 0 1px 0 rgba(201,164,92,0.18)",
+              "0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(201,164,92,0.18)",
           }}
         >
           <span
             suppressHydrationWarning
-            className="font-display text-4xl leading-none text-gold md:text-6xl"
+            className="font-display text-2xl sm:text-3xl md:text-4xl font-medium leading-none text-gold"
             style={{
               textShadow:
-                "0 4px 18px rgba(201,164,92,0.35), 0 1px 0 rgba(0,0,0,0.6)",
+                "0 2px 12px rgba(201,164,92,0.35), 0 1px 0 rgba(0,0,0,0.6)",
             }}
           >
             {unit.value}
           </span>
-          <span className="mt-3 text-[10px] uppercase tracking-luxe text-body-soft md:text-xs">
+          <span className="mt-1.5 sm:mt-2 text-[8px] sm:text-[9px] md:text-[10px] uppercase tracking-wider sm:tracking-luxe text-body-soft">
             {unit.label}
           </span>
         </div>

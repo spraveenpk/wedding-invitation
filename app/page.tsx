@@ -311,11 +311,11 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="io-reveal mt-16 sm:mt-24">
-              <h3 className="font-display text-2xl sm:text-3xl md:text-5xl text-gold">
+            <div className="io-reveal mt-12 sm:mt-16">
+              <h3 className="font-display text-xl sm:text-2xl md:text-3xl text-gold">
                 The Countdown to Forever
               </h3>
-              <div className="mt-6 sm:mt-10">
+              <div className="mt-4 sm:mt-6">
                 <Countdown />
               </div>
             </div>
