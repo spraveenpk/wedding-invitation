@@ -162,6 +162,8 @@ export const WEDDING_CONFIG = {
 
   // RSVP & Google Sheets Integration
   rsvp: {
-    googleSheetUrl: process.env.NEXT_PUBLIC_GOOGLE_SHEET_URL || "",
+    googleSheetUrl:
+      process.env.NEXT_PUBLIC_GOOGLE_SHEET_URL ||
+      "https://script.google.com/macros/s/AKfycbwDVwvmP6ehpA3AX3pQerz-_PVE9BMEFB_d0crAy76LE-ha81vaGSAy2bjC4nRN6bsUYg/exec",
   },
 };
