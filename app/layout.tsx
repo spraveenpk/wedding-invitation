@@ -24,16 +24,20 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Praveen Kumar S & Sri Arunachala Priya S — Our Wedding Invitation",
+  metadataBase: new URL("https://wedding-invitation-blond-seven.vercel.app"),
+  title: "Praveen Kumar S & Sri Arunachala Priya S — Wedding Invitation",
   description:
-    "Our Wedding Invitation — Praveen Kumar S & Sri Arunachala Priya S. Reception 15 November 2026, Muhurtham 16 November 2026, Kettimelam Mahal, Coimbatore.",
+    "With the blessings of our Families, We are delighted to invite you and your family to celebrate our special day with us. Reception: 15 Nov 2026, Muhurtham: 16 Nov 2026 at Kettimelam Mahal, Coimbatore.",
   openGraph: {
-    title: "Praveen Kumar S ❤️ Sri Arunachala Priya S",
-    description: "Our Wedding Invitation",
+    title: "Praveen Kumar S ❤️ Sri Arunachala Priya S — Wedding Invitation",
+    description:
+      "With the blessings of our Families, We are delighted to invite you and your family to celebrate our special day with us. Reception: 15 Nov 2026, Muhurtham: 16 Nov 2026 at Kettimelam Mahal, Coimbatore.",
+    url: "https://wedding-invitation-blond-seven.vercel.app",
+    siteName: "Praveen & Priya Wedding",
     type: "website",
     images: [
       {
-        url: "https://cdn.b12.io/client_media/1AjDam8X/2b31ae50-b498-11f1-83ba-0242ac110002-ASvAdMZ5pEy3BAWop5iHq_FtLJPBcN.jpg",
+        url: "https://wedding-invitation-blond-seven.vercel.app/images/og_wedding_invitation.jpg",
         width: 1200,
         height: 630,
         alt: "Praveen Kumar S & Sri Arunachala Priya S Wedding Invitation",
@@ -42,10 +46,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Praveen Kumar S ❤️ Sri Arunachala Priya S",
-    description: "Our Wedding Invitation",
+    title: "Praveen Kumar S ❤️ Sri Arunachala Priya S — Wedding Invitation",
+    description:
+      "With the blessings of our Families, We are delighted to invite you and your family to celebrate our special day with us. Reception: 15 Nov 2026, Muhurtham: 16 Nov 2026 at Kettimelam Mahal, Coimbatore.",
     images: [
-      "https://cdn.b12.io/client_media/1AjDam8X/2b31ae50-b498-11f1-83ba-0242ac110002-ASvAdMZ5pEy3BAWop5iHq_FtLJPBcN.jpg",
+      "https://wedding-invitation-blond-seven.vercel.app/images/og_wedding_invitation.jpg",
     ],
   },
 };

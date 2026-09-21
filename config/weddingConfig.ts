@@ -64,9 +64,9 @@ export const WEDDING_CONFIG = {
     description:
       "Both the Reception and the Muhurtham will be celebrated at Kettimelam Mahal, Coimbatore. We look forward to welcoming you.",
     googleMapsUrl:
-      "https://www.google.com/maps/search/?api=1&query=Kettimelam+Mahal%2C+Airport+to+Kalapatti+Main+Road%2C+Opposite+NGP+College%2C+Coimbatore",
+      "https://maps.app.goo.gl/9AzSicWohs5jXhSV7",
     googleMapsSearchUrl:
-      "https://www.google.com/maps/search/?api=1&query=Kettimelam+Mahal%2C+Airport+to+Kalapatti+Main+Road%2C+Opposite+NGP+College%2C+Coimbatore",
+      "https://maps.app.goo.gl/9AzSicWohs5jXhSV7",
     googleMapsEmbedUrl:
       "https://www.google.com/maps?q=Kettimelam+Mahal,+Airport+to+Kalapatti+Main+Road,+Opposite+NGP+College,+Coimbatore&output=embed",
   },
@@ -89,7 +89,7 @@ export const WEDDING_CONFIG = {
     },
   },
 
-  // High-Resolution Atmospheric Images (from CDN)
+  // High-Resolution Atmospheric Images (from CDN & Local Assets)
   images: {
     heroTempleDoorway:
       "https://cdn.b12.io/client_media/1AjDam8X/2b3405c6-b498-11f1-8b80-0242ac110002-bOTZhTQ8qCPlH_JzWakIW_4MMryEze.jpg",
@@ -105,8 +105,10 @@ export const WEDDING_CONFIG = {
       "https://cdn.b12.io/client_media/1AjDam8X/2b5a5184-b498-11f1-add8-0242ac110002-K0jfFcDNbpS_RDMYAZlTb_7Tg7Wr4o.jpg",
     rosePetalsWalk:
       "https://cdn.b12.io/client_media/1AjDam8X/2b4e1071-b498-11f1-8d8b-0242ac110002-jnvLdkcac9Y4ruR69MKYU_1j5e26qE.jpg",
+    invitationCard:
+      "/images/wedding_invitation_card.jpg",
     ogImage:
-      "https://cdn.b12.io/client_media/1AjDam8X/2b31ae50-b498-11f1-83ba-0242ac110002-ASvAdMZ5pEy3BAWop5iHq_FtLJPBcN.jpg",
+      "https://wedding-invitation-blond-seven.vercel.app/images/og_wedding_invitation.jpg",
   },
 
   // Moments Gallery items
@@ -151,7 +153,7 @@ export const WEDDING_CONFIG = {
   // WhatsApp Share Message
   whatsapp: {
     message:
-      "✨ *Wedding Invitation* ✨\n\nWith immense joy and the blessings of our families, we invite you to celebrate the wedding of\n💍 *Praveen Kumar S & Sri Arunachala Priya S* 💍\n\n🗓 *Reception:* Sunday, 15 November 2026\n🗓 *Muhurtham:* Monday, 16 November 2026 (06:00 AM – 07:00 AM)\n📍 *Venue:* Kettimelam Mahal, Coimbatore\n\nPlease view our digital invitation card for ceremonies, venue directions & RSVP:\n",
+      "*Wedding Invitation*\n\n*With the blessings of our Families, We are delighted to invite you and your family to celebrate our special day with us.*\n\n_*We warmly invite you to Celebrate the Beautiful Beginning of*_\n\n*Praveen Kumar S*\n*&*\n*Sri Arunachala Priya S*\n\n*Reception:* Sunday, 15 November 2026 (6:00 PM - 9:00 PM)\n*Muhurtham:* Monday, 16 November 2026 (06:00 AM – 07:00 AM)\n\n*Venue:* Kettimelam Mahal, Airport - Kalapatti Main Road (NGP College Opposite), Coimbatore.\nhttps://maps.app.goo.gl/9AzSicWohs5jXhSV7\n\n_Your presence and blessings would make our celebration even more special._\n\n_With Love,_\nP&A\n\nOur digital invitation Card:\nhttps://wedding-invitation-blond-seven.vercel.app\n",
   },
 
   // Authentic Wedding Background Music

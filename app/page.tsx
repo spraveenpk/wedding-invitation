@@ -311,6 +311,31 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Traditional Wedding Patrika / Invitation Card Display */}
+            <div className="io-reveal mt-12 sm:mt-16 flex flex-col items-center">
+              <p className="text-[10px] sm:text-xs uppercase tracking-luxe text-gold mb-4 sm:mb-6">
+                Official Invitation Card
+              </p>
+              <div className="relative max-w-xs sm:max-w-sm md:max-w-md rounded-lg p-2 sm:p-2.5 border border-gold/40 bg-card/85 shadow-[0_20px_60px_rgba(0,0,0,0.85),0_0_45px_rgba(201,164,92,0.18)] transition-transform duration-500 hover:scale-[1.01]">
+                <img
+                  src={WEDDING_CONFIG.images.invitationCard}
+                  alt="Wedding Invitation Card - Praveen Kumar S & Sri Arunachala Priya S"
+                  className="w-full h-auto rounded-md object-contain"
+                  loading="lazy"
+                />
+              </div>
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+                <a
+                  href={WEDDING_CONFIG.images.invitationCard}
+                  download="Praveen_Priya_Wedding_Invitation.jpg"
+                  className="btn-gold text-[10px] sm:text-xs py-2 px-5 cursor-pointer inline-flex items-center gap-2"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span>Download Card</span>
+                </a>
+              </div>
+            </div>
+
             <div className="io-reveal mt-12 sm:mt-16">
               <h3 className="font-display text-xl sm:text-2xl md:text-3xl text-gold">
                 The Countdown to Forever

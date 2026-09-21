@@ -3,8 +3,7 @@ import { WEDDING_CONFIG } from "@/config/weddingConfig";
 
 export default function WhatsAppShare() {
   const handleShare = () => {
-    const currentUrl = typeof window !== "undefined" ? window.location.href : "";
-    const text = encodeURIComponent(WEDDING_CONFIG.whatsapp.message + currentUrl);
+    const text = encodeURIComponent(WEDDING_CONFIG.whatsapp.message.trim());
     window.open(`https://wa.me/?text=${text}`, "_blank", "noopener,noreferrer");
   };
 
