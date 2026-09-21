@@ -5,9 +5,9 @@ import { WEDDING_CONFIG } from "@/config/weddingConfig";
 
 /**
  * Continuous Background Music Component
- * - No mute button displayed on the website as requested.
- * - Plays continuously in a loop.
- * - Activates seamlessly on first user interaction (touch, click, scroll) or mount.
+ * - No mute button on the UI (per user request).
+ * - Plays continuously in a loop with rich sound.
+ * - Activates on first touch, click, scroll, preloader entry, or immediate autoplay.
  */
 export default function MusicToggle() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -16,54 +16,54 @@ export default function MusicToggle() {
     const audio = audioRef.current;
     if (!audio) return;
 
-    audio.volume = 0.45;
+    audio.volume = 0.5;
     audio.loop = true;
 
-    let hasStarted = false;
-
-    const startAudio = () => {
-      if (!audio || hasStarted) return;
+    const playAudio = () => {
+      if (!audio) return;
+      audio.volume = 0.5;
       const playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise
           .then(() => {
-            hasStarted = true;
-            removeListeners();
+            // Audio is now playing continuously
           })
           .catch(() => {
-            // Browser blocked unmuted autoplay; wait for next user touch/click/scroll
+            // Waiting for user gesture
           });
       }
     };
 
-    const removeListeners = () => {
-      window.removeEventListener("click", startAudio);
-      window.removeEventListener("touchstart", startAudio);
-      window.removeEventListener("scroll", startAudio);
-      window.removeEventListener("pointerdown", startAudio);
-      window.removeEventListener("keydown", startAudio);
-      window.removeEventListener("play-wedding-music", startAudio);
+    // Expose globally for preloader and buttons to trigger synchronously on user tap
+    (window as unknown as { __playWeddingMusic?: () => void }).__playWeddingMusic = playAudio;
+
+    // Try immediately on load (in case browser permits autoplay)
+    playAudio();
+
+    // Attach to first user interaction on the window
+    const onFirstInteract = () => {
+      playAudio();
     };
 
-    // Try immediately (in case browser allows autoplay)
-    startAudio();
+    const events = ["click", "touchstart", "touchend", "scroll", "pointerdown", "keydown"];
+    events.forEach((evt) => {
+      window.addEventListener(evt, onFirstInteract, { passive: true });
+    });
 
-    // Listen for any first user action on the page
-    window.addEventListener("click", startAudio, { passive: true });
-    window.addEventListener("touchstart", startAudio, { passive: true });
-    window.addEventListener("scroll", startAudio, { passive: true });
-    window.addEventListener("pointerdown", startAudio, { passive: true });
-    window.addEventListener("keydown", startAudio, { passive: true });
-    window.addEventListener("play-wedding-music", startAudio);
+    window.addEventListener("play-wedding-music", playAudio);
 
     return () => {
-      removeListeners();
+      events.forEach((evt) => {
+        window.removeEventListener(evt, onFirstInteract);
+      });
+      window.removeEventListener("play-wedding-music", playAudio);
     };
   }, []);
 
   return (
     <audio
       ref={audioRef}
+      id="wedding-bgm"
       src={WEDDING_CONFIG.audio?.src || "/audio/wedding_music.mp3"}
       loop
       preload="auto"

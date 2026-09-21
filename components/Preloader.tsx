@@ -1,19 +1,54 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
+import { WEDDING_CONFIG } from "@/config/weddingConfig";
 
 interface PreloaderProps {
   onFinish?: () => void;
 }
 
 export default function Preloader({ onFinish }: PreloaderProps) {
-  const [progress, setProgress] = useState(0);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isDone, setIsDone] = useState(false);
+  const [readyToOpen, setReadyToOpen] = useState(false);
   const dismissedRef = useRef(false);
 
+  const startMusicAndOpen = useCallback(() => {
+    if (dismissedRef.current) return;
+    dismissedRef.current = true;
+
+    // 1. Play audio synchronously within user gesture callstack
+    try {
+      const audioEl = document.getElementById("wedding-bgm") as HTMLAudioElement | null;
+      if (audioEl) {
+        audioEl.volume = 0.5;
+        audioEl.play().catch(() => {});
+      }
+    } catch {}
+
+    try {
+      if (typeof (window as unknown as { __playWeddingMusic?: () => void }).__playWeddingMusic === "function") {
+        (window as unknown as { __playWeddingMusic: () => void }).__playWeddingMusic();
+      }
+    } catch {}
+
+    window.dispatchEvent(new CustomEvent("play-wedding-music"));
+
+    // 2. Remember intro was seen in this session
+    try {
+      sessionStorage.setItem("wedding_v2_intro_seen", "true");
+    } catch {}
+
+    // 3. Smooth fadeout into temple doorway
+    setIsFadingOut(true);
+    setTimeout(() => {
+      setIsDone(true);
+      onFinish?.();
+    }, 700);
+  }, [onFinish]);
+
   useEffect(() => {
-    // Check if already dismissed in session
+    // If already seen in this session, skip immediately
     try {
       if (sessionStorage.getItem("wedding_v2_intro_seen") === "true") {
         setIsDone(true);
@@ -22,52 +57,19 @@ export default function Preloader({ onFinish }: PreloaderProps) {
       }
     } catch {}
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const duration = reducedMotion ? 300 : 1200;
-    const startTime = performance.now();
-    let animationFrame = 0;
+    // Mark ready to open after 400ms
+    const timer = setTimeout(() => {
+      setReadyToOpen(true);
+    }, 400);
 
-    const dismiss = () => {
-      if (dismissedRef.current) return;
-      dismissedRef.current = true;
-      try {
-        sessionStorage.setItem("wedding_v2_intro_seen", "true");
-      } catch {}
-      cancelAnimationFrame(animationFrame);
-      setIsFadingOut(true);
-      setTimeout(() => {
-        setIsDone(true);
-        onFinish?.();
-      }, 600);
-    };
-
-    const tick = (now: number) => {
-      if (dismissedRef.current) return;
-      const elapsed = Math.min(1, (now - startTime) / duration);
-      // Smooth cubic-out easing for progress bar
-      const eased = 1 - Math.pow(1 - elapsed, 3);
-      setProgress(eased);
-
-      if (elapsed < 1) {
-        animationFrame = requestAnimationFrame(tick);
-      } else {
-        dismiss();
-      }
-    };
-
-    animationFrame = requestAnimationFrame(tick);
-
-    // Also dismiss smoothly on user interaction
-    const onUserInteraction = () => dismiss();
-    window.addEventListener("wheel", onUserInteraction, { passive: true, once: true });
-    window.addEventListener("touchmove", onUserInteraction, { passive: true, once: true });
-
-    (window as unknown as { __finishIntro?: () => void }).__finishIntro = dismiss;
+    // Attempt direct audio play on mount in case browser policy permits
+    try {
+      const audioEl = document.getElementById("wedding-bgm") as HTMLAudioElement | null;
+      audioEl?.play().catch(() => {});
+    } catch {}
 
     return () => {
-      cancelAnimationFrame(animationFrame);
-      window.removeEventListener("wheel", onUserInteraction);
-      window.removeEventListener("touchmove", onUserInteraction);
+      clearTimeout(timer);
     };
   }, [onFinish]);
 
@@ -79,49 +81,76 @@ export default function Preloader({ onFinish }: PreloaderProps) {
     <div
       id="preloader-root"
       data-preloader-active={isFadingOut ? "false" : "true"}
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050505] transition-all duration-700 ease-out ${
+      onClick={startMusicAndOpen}
+      onTouchStart={startMusicAndOpen}
+      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050505] px-4 text-center cursor-pointer transition-all duration-700 ease-out select-none ${
         isFadingOut
           ? "pointer-events-none opacity-0 scale-[1.03] blur-sm"
           : "opacity-100 scale-100 blur-0"
       }`}
-      role="status"
-      aria-label="Loading the wedding invitation"
+      role="dialog"
+      aria-label="Welcome to our wedding invitation"
     >
+      {/* Background radial glow */}
       <div
-        className="mb-8 flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full border border-gold/60"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          boxShadow: "0 0 40px rgba(201,164,92,0.25), inset 0 0 20px rgba(201,164,92,0.12)",
+          background:
+            "radial-gradient(ellipse at center, rgba(58,13,24,0.45) 0%, rgba(5,5,5,0.95) 75%)",
         }}
-      >
-        <span className="font-display text-xl sm:text-2xl text-gold">❈</span>
-      </div>
+      />
 
-      <p className="font-display text-3xl sm:text-5xl tracking-wide text-gold">
-        P &amp; A
-      </p>
-
-      <p className="mt-3 text-[11px] sm:text-xs uppercase tracking-luxe text-body-soft">
-        Our story begins...
-      </p>
-
-      <div className="mt-10 h-[1.5px] w-48 sm:w-72 bg-gold/15 overflow-hidden rounded-full">
+      <div className="relative z-10 flex flex-col items-center max-w-md mx-auto">
+        {/* Auspicious golden emblem */}
         <div
-          className="h-full bg-gradient-to-r from-gold/70 via-gold to-champagne transition-[width] duration-75 ease-out"
-          style={{ width: `${Math.round(progress * 100)}%` }}
-        />
-      </div>
+          className="mb-6 flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-full border border-gold/70 bg-black/60 shadow-[0_0_40px_rgba(201,164,92,0.3)] animate-pulse"
+        >
+          <span className="font-display text-2xl sm:text-3xl text-gold">❈</span>
+        </div>
 
-      <button
-        type="button"
-        onClick={() => {
-          if (typeof (window as unknown as { __finishIntro?: () => void }).__finishIntro === "function") {
-            (window as unknown as { __finishIntro: () => void }).__finishIntro();
-          }
-        }}
-        className="mt-10 min-h-10 text-[10px] sm:text-[11px] uppercase tracking-luxe text-muted-foreground transition-colors duration-300 hover:text-gold cursor-pointer"
-      >
-        Skip Intro
-      </button>
+        <p className="text-[10px] sm:text-xs uppercase tracking-luxe text-gold/80">
+          Together with their families
+        </p>
+
+        <h1 className="mt-3 font-display text-2xl sm:text-4xl text-ivory leading-tight">
+          {WEDDING_CONFIG.groom.fullName}
+        </h1>
+
+        <p className="my-1 font-display text-xl sm:text-2xl italic text-gold">
+          &amp;
+        </p>
+
+        <h1 className="font-display text-2xl sm:text-4xl text-ivory leading-tight">
+          {WEDDING_CONFIG.bride.fullName}
+        </h1>
+
+        <div className="gold-divider mx-auto my-5 sm:my-6 w-28 sm:w-36" />
+
+        <p className="font-display text-sm sm:text-base italic text-body-soft">
+          {WEDDING_CONFIG.tagline}
+        </p>
+
+        {/* Prominent Open Invitation Button */}
+        <div className="mt-8 sm:mt-10">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              startMusicAndOpen();
+            }}
+            className={`btn-gold relative inline-flex items-center gap-2 rounded-full py-3 px-8 text-xs uppercase tracking-luxe shadow-[0_0_35px_rgba(201,164,92,0.45)] cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95 ${
+              readyToOpen ? "animate-bounce" : "opacity-90"
+            }`}
+          >
+            <span>Open Invitation</span>
+            <span className="text-sm">✨</span>
+          </button>
+        </div>
+
+        <p className="mt-4 text-[10px] sm:text-[11px] uppercase tracking-wider text-gold/60">
+          Tap anywhere to enter with music 🎵
+        </p>
+      </div>
     </div>
   );
 }
