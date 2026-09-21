@@ -153,7 +153,7 @@ export const WEDDING_CONFIG = {
   // WhatsApp Share Message
   whatsapp: {
     message:
-      "✨ *Wedding Invitation* ✨\n\n🙏 *With the blessings of our Families, We are delighted to invite you and your family to celebrate our special day with us.* 🙏\n\n🌸 _*We warmly invite you to Celebrate the Beautiful Beginning of*_ 🌸\n\n💍 *Praveen Kumar S*\n*&*\n💐 *Sri Arunachala Priya S* 💍\n\n🎉 *Reception:* Sunday, 15 November 2026 (6:00 PM - 9:00 PM)\n🪔 *Muhurtham:* Monday, 16 November 2026 (06:00 AM – 07:00 AM)\n\n📍 *Venue:* Kettimelam Mahal, Airport - Kalapatti Main Road (NGP College Opposite), Coimbatore.\n🗺️ https://maps.app.goo.gl/9AzSicWohs5jXhSV7\n\n✨ _Your presence and blessings would make our celebration even more special._ ✨\n\n❤️ _With Love,_\n*P&A*\n\n💌 *Our digital invitation Card:*\nhttps://wedding-invitation-blond-seven.vercel.app\n",
+      "✨ *Wedding Invitation* ✨\n\n*🎊With the blessings of our Families, We are delighted to invite you and your family to celebrate our special day with us. 🥳*\n\n_*💫 We warmly invite you to Celebrate the Beautiful Beginning of 🎉*_\n\n❤️💍 *Praveen Kumar S & Sri Arunachala Priya S*💍❤️\n\n🗓️*Reception:* Sunday, 15 November 2026 (6:00 PM - 9:00 PM)\n🗓️ *Muhurtham:* Monday, 16 November 2026 (06:00 AM – 07:00 AM)\n📍 *Venue:* Kettimelam Mahal, Airport - Kalapatti Main Road (NGP College Opposite), Coimbatore.\nhttps://maps.app.goo.gl/9AzSicWohs5jXhSV7\n\n_🌸 Your presence and blessings would make our celebration even more special.🌸_\n\n_With Love,_\n🪷P&A🪷\n\nOur digital invitation Card💌:\nhttps://wedding-invitation-blond-seven.vercel.app\n",
   },
 
   // Authentic Wedding Background Music
